@@ -1,7 +1,10 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.23)
 
 # set the project name
 project(timer LANGUAGES CXX)
+
+# set Debug build type
+set(CMAKE_BUILD_TYPE Debug)
 
 # find the required libraries
 set(Boost_USE_MULTITHREADED false)
