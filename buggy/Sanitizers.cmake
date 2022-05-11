@@ -1,5 +1,6 @@
 # define options for enabling the Address Sanitizer(ASan) and
-# the Undefined Behavior Sanitizer(UBSan)
+# the Undefined Behavior Sanitizer(UBSan).
+# to enable the option in CLI, use "-D ENABLE_ASAN=true -D ENABLE_UBSAN=true"
 option(ENABLE_ASAN false)
 option(ENABLE_UBSAN false)
 
