@@ -1,6 +1,8 @@
 # define options for enabling the Address Sanitizer(ASan) and
 # the Undefined Behavior Sanitizer(UBSan).
-# to enable the option in CLI, use "-D ENABLE_ASAN=true -D ENABLE_UBSAN=true"
+# Note: To enable the option in CLI,
+# use "-D ENABLE_ASAN=true -D ENABLE_UBSAN=true" when generate the native build files
+# e.g. "cmake -S . -B tmp -D ENABLE_ASAN=true -D ENABLE_UBSAN=true"
 option(ENABLE_ASAN false)
 option(ENABLE_UBSAN false)
 
