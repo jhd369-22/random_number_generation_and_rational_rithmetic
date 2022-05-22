@@ -4,14 +4,14 @@
 
 namespace ra::random {
 
-using int_type = uint64_t;
-
 class linear_congruential_generator {
   private:
     int_type a_, c_, m_, s_;
     int_type x_;  // integer sequence x_n for n = 0, 1, 2, ...
 
   public:
+    using int_type = uint64_t;
+    
     // constructor
     linear_congruential_generator(int_type a, int_type c, int_type m, int_type s = default_seed());
 
