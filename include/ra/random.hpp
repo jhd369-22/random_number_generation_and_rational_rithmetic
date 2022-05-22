@@ -1,45 +1,74 @@
-#include<iostream>
+#include <stdint.h>
 
-// int_type. This type member is the unsigned integer type used by the linear_congruential_generator class. This type must be at least 64 bits in size.
-using int_type = unsigned long;
+#include <iostream>
 
-class linear_congruential_generator{
+namespace ra::random {
 
-    private:
-        int_type a_;
-        int_type c_;
-        int_type m_;
-        int_type s_;
-        int_type x0_;
+using int_type = uint64_t;
 
-    public:
-        // constructor
-        linear_congruential_generator(int_type a, int_type c, int_type m, int_type s = default_seed());
+class linear_congruential_generator {
+  private:
+    int_type a_, c_, m_, s_;
+    int_type x_;  // integer sequence x_n for n = 0, 1, 2, ...
 
-        // copy constructor
-        linear_congruential_generator(const linear_congruential_generator& other);
+  public:
+    // constructor
+    linear_congruential_generator(int_type a, int_type c, int_type m, int_type s = default_seed());
 
-        // copy assignment operator
-        linear_congruential_generator& operator=(const linear_congruential_generator& other);
+    // copy constructor
+    linear_congruential_generator(const linear_congruential_generator &other);
 
-        // move constructor
-        linear_congruential_generator(linear_congruential_generator&& other);
+    // copy assignment operator
+    linear_congruential_generator &operator=(const linear_congruential_generator &other);
 
-        // move assignment operator
-        linear_congruential_generator& operator=(linear_congruential_generator&& other);
+    // move constructor
+    linear_congruential_generator(linear_congruential_generator &&other);
 
-        // destructor
-        ~linear_congruential_generator();
+    // move assignment operator
+    linear_congruential_generator &operator=(linear_congruential_generator &&other);
 
-        // default seed
-        static int_type default_seed();
+    // destructor
+    ~linear_congruential_generator();
 
+    // return multiplier
+    int_type multiplier() const;
 
+    // return increment
+    int_type increment() const;
+
+    // return modulus
+    int_type modulus() const;
+
+    // default seed
+    static int_type default_seed();
+
+    // set new seed
+    void seed(int_type s = default_seed());
+
+    // operator()
+    int_type operator()();
+
+    // operator==
+    bool operator==(const linear_congruential_generator &other) const;
+
+    // operator!=
+    bool operator!=(const linear_congruential_generator &other) const;
+
+    // operator<<
+    friend std::ostream &operator<<(std::ostream &os, const linear_congruential_generator &lcg);
+
+    // discard
+    void discard(unsigned long long n);
+
+    // min
+    int_type min();
+
+    // max
+    int_type max();
 };
 
 // constructor
-linear_congruential_generator::linear_congruential_generator(int_type a, int_type c, int_type m, int_type s = default_seed()){
-
+linear_congruential_generator::linear_congruential_generator(int_type a, int_type c, int_type m, int_type s = default_seed()) {
     // set the a, c, m, and s values of the generator
     this->a_ = a;
     this->c_ = c;
@@ -47,17 +76,15 @@ linear_congruential_generator::linear_congruential_generator(int_type a, int_typ
     this->s_ = s;
 
     // set the initial state of the generator
-    if( (c % m) == 0 && (s % m) == 0 ){
-        this->x0_ = 1;
-    }
-    else{
-        this->x0_ = s;
+    if ((c % m) == 0 && (s % m) == 0) {
+        this->x_ = 1;
+    } else {
+        this->x_ = s;
     }
 }
 
 // copy constructor
-linear_congruential_generator::linear_congruential_generator(const linear_congruential_generator& other){
-
+linear_congruential_generator::linear_congruential_generator(const linear_congruential_generator &other) {
     // copy the a, c, m, and s values of the other generator
     this->a_ = other.a_;
     this->c_ = other.c_;
@@ -65,12 +92,11 @@ linear_congruential_generator::linear_congruential_generator(const linear_congru
     this->s_ = other.s_;
 
     // copy the initial state of the other generator
-    this->x0_ = other.x0_;
+    this->x_ = other.x_;
 }
 
 // copy assignment operator
-linear_congruential_generator& linear_congruential_generator::operator=(const linear_congruential_generator& other){
-
+linear_congruential_generator &linear_congruential_generator::operator=(const linear_congruential_generator &other) {
     // copy the a, c, m, and s values of the other generator
     this->a_ = other.a_;
     this->c_ = other.c_;
@@ -78,15 +104,13 @@ linear_congruential_generator& linear_congruential_generator::operator=(const li
     this->s_ = other.s_;
 
     // copy the initial state of the other generator
-    this->x0_ = other.x0_;
+    this->x_ = other.x_;
 
     return *this;
 }
 
-
 // move constructor
-linear_congruential_generator::linear_congruential_generator(linear_congruential_generator&& other){
-
+linear_congruential_generator::linear_congruential_generator(linear_congruential_generator &&other) {
     // move the a, c, m, and s values of the other generator
     this->a_ = other.a_;
     this->c_ = other.c_;
@@ -94,12 +118,11 @@ linear_congruential_generator::linear_congruential_generator(linear_congruential
     this->s_ = other.s_;
 
     // move the initial state of the other generator
-    this->x0_ = other.x0_;
+    this->x_ = other.x_;
 }
 
 // move assignment operator
-linear_congruential_generator& linear_congruential_generator::operator=(linear_congruential_generator&& other){
-
+linear_congruential_generator &linear_congruential_generator::operator=(linear_congruential_generator &&other) {
     // move the a, c, m, and s values of the other generator
     this->a_ = other.a_;
     this->c_ = other.c_;
@@ -107,15 +130,80 @@ linear_congruential_generator& linear_congruential_generator::operator=(linear_c
     this->s_ = other.s_;
 
     // move the initial state of the other generator
-    this->x0_ = other.x0_;
+    this->x_ = other.x_;
 
     return *this;
 }
 
-// default_seed. This static member function returns the default seed value, which is the value returned by the default constructor.
-int_type linear_congruential_generator::default_seed(){
+// return destructor
+linear_congruential_generator::~linear_congruential_generator() {}
+
+// return multiplier
+int_type linear_congruential_generator::multiplier() const {
+    return this->a_;
+}
+
+// return increment
+int_type linear_congruential_generator::increment() const {
+    return this->c_;
+}
+
+// return modulus
+int_type linear_congruential_generator::modulus() const {
+    return this->m_;
+}
+
+// default_seed
+int_type linear_congruential_generator::default_seed() {
     return 1;
 }
 
-// destructor
-linear_congruential_generator::~linear_congruential_generator(){}
+// set a new seed value
+void linear_congruential_generator::seed(int_type s) {
+    if ((this->c_ % this->m_) == 0 && (s % this->m_) == 0) {
+        this->x_ = 1;
+    } else {
+        this->x_ = s;
+    }
+}
+
+// operator()
+int_type linear_congruential_generator::operator()() {
+    // calculate the next state of the generator
+    this->x_ = (this->a_ * this->x_ + this->c_) % this->m_;
+
+    // return the next state of the generator
+    return this->x_;
+}
+
+// operator==
+bool linear_congruential_generator::operator==(const linear_congruential_generator &other) const {
+    // return true if the a, c, m, and s values of the two generators are equal
+    return (this->a_ == other.a_ && this->c_ == other.c_ && this->m_ == other.m_ && this->x_ == other.x_);
+}
+
+// operator!=
+bool linear_congruential_generator::operator!=(const linear_congruential_generator &other) const {
+    // return true if the a, c, m, and s values of the two generators are not equal
+    return (this->a_ != other.a_ || this->c_ != other.c_ || this->m_ != other.m_ || this->x_ != other.x_);
+}
+
+// discard
+void linear_congruential_generator::discard(unsigned long long n) {
+    // discard next n numbers
+    for (unsigned long long i = 0; i < n; i++) {
+        this->operator()();
+    }
+}
+
+// min
+int_type linear_congruential_generator::min() {
+    return this->c_ == 0 ? 1 : 0;
+}
+
+// max
+int_type linear_congruential_generator::max() {
+    return this->m_ - 1;
+}
+
+}  // namespace ra::random
