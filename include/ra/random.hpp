@@ -13,7 +13,7 @@ class linear_congruential_generator{
         int_type x0_;
 
     public:
-        // a constructor that takes the following arguments, each of type int_type: 1) multiplier a, 2) increment c, 3) modulus m, and 4) seed s (where 0 <= s < m). The fourth parameter (i.e., seed) should default to the value returned by the default_seed (static) member function. This constructor sets the a, c, and m values of the generator to a, c, and m, respectively. The initial state (i.e., x0) of the generator is initialized as follows. If mod(c;m) = 0 and mod(s;m) = 0, x0 is set to 1; otherwise, x0 is set to s.
+        // constructor
         linear_congruential_generator(int_type a, int_type c, int_type m, int_type s = default_seed());
 
         // copy constructor
@@ -28,6 +28,7 @@ class linear_congruential_generator{
         // move assignment operator
         linear_congruential_generator& operator=(linear_congruential_generator&& other);
 
+        // destructor
         ~linear_congruential_generator();
 
         // default seed
