@@ -1,4 +1,4 @@
-
+#include <iostream>
 
 namespace ra::math {
 template <typename T>
@@ -213,5 +213,67 @@ class rational {
             return tmp;
         }
 }; 
+
+// non member template unary operator+
+template<typename T>
+rational<T> operator+(const rational<T> &r) {
+    return r;
+}
+
+template <typename T>
+rational<T> operator-(const rational<T> &r) {
+    return rational<T>(-r.numerator(), r.denominator());
+}
+
+// non member template binary operators
+template <typename T>
+rational<T> operator+(const rational<T> &lhs, const rational<T> &rhs) {
+    return rational<T>(lhs.numerator() * rhs.denominator() + rhs.numerator() * lhs.denominator(), lhs.denominator() * rhs.denominator());
+}
+
+template <typename T>
+rational<T> operator-(const rational<T> &lhs, const rational<T> &rhs) {
+    return rational<T>(lhs.numerator() * rhs.denominator() - rhs.numerator() * lhs.denominator(), lhs.denominator() * rhs.denominator());
+}
+
+template <typename T>
+rational<T> operator*(const rational<T> &lhs, const rational<T> &rhs) {
+    return rational<T>(lhs.numerator() * rhs.numerator(), lhs.denominator() * rhs.denominator());
+}
+
+template <typename T>
+rational<T> operator/(const rational<T> &lhs, const rational<T> &rhs) {
+    return rational<T>(lhs.numerator() * rhs.denominator(), lhs.denominator() * rhs.numerator());
+}
+
+// stream insertion operator
+template <typename T>
+std::ostream &operator<<(std::ostream &os, const rational<T> &r) {
+    if(r.numerator() < 0) {
+        os << "-";
+    }
+
+    os << std::abs(r.numerator()) << "/" << r.denominator();
+    return os;
+}
+
+// stream extraction operator
+template <typename T>
+std::istream &operator>>(std::istream &is, rational<T> &r) {
+    T numerator, denominator;
+    char c;
+
+    is >> numerator >> c >> denominator;
+
+    if(c != '/') {
+        is.setstate(std::ios_base::failbit);
+        return is;
+    }
+
+    r = rational<T>(numerator, denominator);
+    
+    return is;
+}
+
 
 }  // namespace ra::math
