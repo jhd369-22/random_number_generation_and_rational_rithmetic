@@ -1,1 +1,0 @@
-long fibonacci(long i);
