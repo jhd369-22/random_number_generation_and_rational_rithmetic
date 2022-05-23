@@ -5,70 +5,70 @@
 namespace ra::random {
 
 class linear_congruential_generator {
-  private:
-    int_type a_, c_, m_, s_;
-    int_type x_;  // integer sequence x_n for n = 0, 1, 2, ...
+        using int_type = uint64_t;
 
-  public:
-    using int_type = uint64_t;
-    
-    // constructor
-    linear_congruential_generator(int_type a, int_type c, int_type m, int_type s = default_seed());
+    private:
+        int_type a_, c_, m_, s_;
+        int_type x_;  // integer sequence x_n for n = 0, 1, 2, ...
 
-    // copy constructor
-    linear_congruential_generator(const linear_congruential_generator &other);
+    public:
+        // constructor
+        linear_congruential_generator(int_type a, int_type c, int_type m, int_type s = default_seed());
 
-    // copy assignment operator
-    linear_congruential_generator &operator=(const linear_congruential_generator &other);
+        // copy constructor
+        linear_congruential_generator(const linear_congruential_generator &other);
 
-    // move constructor
-    linear_congruential_generator(linear_congruential_generator &&other);
+        // copy assignment operator
+        linear_congruential_generator &operator=(const linear_congruential_generator &other);
 
-    // move assignment operator
-    linear_congruential_generator &operator=(linear_congruential_generator &&other);
+        // move constructor
+        linear_congruential_generator(linear_congruential_generator &&other);
 
-    // destructor
-    ~linear_congruential_generator();
+        // move assignment operator
+        linear_congruential_generator &operator=(linear_congruential_generator &&other);
 
-    // return multiplier
-    int_type multiplier() const;
+        // destructor
+        ~linear_congruential_generator();
 
-    // return increment
-    int_type increment() const;
+        // return multiplier
+        int_type multiplier() const;
 
-    // return modulus
-    int_type modulus() const;
+        // return increment
+        int_type increment() const;
 
-    // default seed
-    static int_type default_seed();
+        // return modulus
+        int_type modulus() const;
 
-    // set new seed
-    void seed(int_type s = default_seed());
+        // default seed
+        static int_type default_seed();
 
-    // operator()
-    int_type operator()();
+        // set new seed
+        void seed(int_type s = default_seed());
 
-    // operator==
-    bool operator==(const linear_congruential_generator &other) const;
+        // operator()
+        int_type operator()();
 
-    // operator!=
-    bool operator!=(const linear_congruential_generator &other) const;
+        // operator==
+        bool operator==(const linear_congruential_generator &other) const;
 
-    // operator<<
-    friend std::ostream &operator<<(std::ostream &os, const linear_congruential_generator &lcg);
+        // operator!=
+        bool operator!=(const linear_congruential_generator &other) const;
 
-    // discard
-    void discard(unsigned long long n);
+        // operator<<
+        friend std::ostream &operator<<(std::ostream &os, const linear_congruential_generator &lcg);
 
-    // min
-    int_type min();
+        // discard
+        void discard(unsigned long long n);
 
-    // max
-    int_type max();
+        // min
+        int_type min();
+
+        // max
+        int_type max();
 };
 
 // constructor
-linear_congruential_generator::linear_congruential_generator(int_type a, int_type c, int_type m, int_type s = default_seed()) {
+linear_congruential_generator::linear_congruential_generator(int_type a, int_type c, int_type m, int_type s) {
     // set the a, c, m, and s values of the generator
     this->a_ = a;
     this->c_ = c;
