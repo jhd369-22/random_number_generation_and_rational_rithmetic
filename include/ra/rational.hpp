@@ -15,7 +15,7 @@ class rational {
         rational() : numerator_(0), denominator_(1) {}
 
         // two parameter constructor
-        rational(int_type n = 0, int_type d = 1): numerator_(n), denominator_(d) {
+        rational(int_type n, int_type d): numerator_(n), denominator_(d) {
             if(denominator_ == 0){
                 numerator_ = std::numeric_limits<int_type>::max();
                 denominator_ = int_type(1);
