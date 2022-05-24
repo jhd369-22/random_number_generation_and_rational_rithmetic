@@ -244,7 +244,7 @@ TEMPLATE_TEST_CASE("operator>>", "[rational]", int, long, long long) {
     SECTION("incorrect input") {
         ra::math::rational<TestType> r;
         std::stringstream ss("1 2");
-        REQUIRE(ss >> r);
+        REQUIRE(!(ss >> r));
         CHECK(r.numerator() == 1);
         CHECK(r.denominator() == 2);
     }
