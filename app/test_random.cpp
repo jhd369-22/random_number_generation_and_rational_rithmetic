@@ -8,7 +8,7 @@ using int_type = uint64_t;
 // catch2 test cases
 TEST_CASE("constructor", "[linear_congruential_generator]") {
     int_type a = 1, c = 2, m = 3, s = 4;
-    ra::random::linear_congruential_generator<int_type> r(a, c, m, s);
+    ra::random::linear_congruential_generator lcg(a, c, m, s);
     REQUIRE(lcg.multiplier() == 1);
     REQUIRE(lcg.increment() == 2);
     REQUIRE(lcg.modulus() == 3);
