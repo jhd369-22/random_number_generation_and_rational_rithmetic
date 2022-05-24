@@ -3,10 +3,11 @@
 #include <ra/random.hpp>
 #include <random>
 
+using int_type = ra::random::int_type;
 
 // catch2 test cases
 TEST_CASE("constructor", "[linear_congruential_generator]") {
-    ra::random::linear_congruential_generator lcg(1, 2, 3, 4);
+    ra::random::linear_congruential_generator lcg(int_type(1), int_type(2), int_type(3), int_type(4));
     CHECK(lcg.multiplier() == 1);
     CHECK(lcg.increment() == 2);
     CHECK(lcg.modulus() == 3);
