@@ -21,25 +21,25 @@ linear_congruential_generator::linear_congruential_generator(int_type a, int_typ
 // copy constructor
 linear_congruential_generator::linear_congruential_generator(const linear_congruential_generator &other) {
     // copy the a, c, m, and s values of the other generator
-    this->a_ = other.a_;
-    this->c_ = other.c_;
-    this->m_ = other.m_;
-    this->s_ = other.s_;
+    this->a_ = other.multiplier();
+    this->c_ = other.increment();
+    this->m_ = other.modulus();
+    this->s_ = other.get_seed();
 
     // copy the initial state of the other generator
-    this->x_ = other.x_;
+    this->x_ = other.get_x();
 }
 
 // copy assignment operator
 linear_congruential_generator &linear_congruential_generator::operator=(const linear_congruential_generator &other) {
     // copy the a, c, m, and s values of the other generator
-    this->a_ = other.a_;
-    this->c_ = other.c_;
-    this->m_ = other.m_;
-    this->s_ = other.s_;
+    this->a_ = other.multiplier();
+    this->c_ = other.increment();
+    this->m_ = other.modulus();
+    this->s_ = other.get_seed();
 
     // copy the initial state of the other generator
-    this->x_ = other.x_;
+    this->x_ = other.get_x();
 
     return *this;
 }
