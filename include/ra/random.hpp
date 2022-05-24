@@ -69,10 +69,10 @@ class linear_congruential_generator {
         void discard(unsigned long long n);
 
         // min
-        int_type min();
+        int_type min() const;
 
         // max
-        int_type max();
+        int_type max() const;
 };
 
 std::ostream &operator<<(std::ostream &os, const linear_congruential_generator &lcg);

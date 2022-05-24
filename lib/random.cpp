@@ -142,12 +142,12 @@ void linear_congruential_generator::discard(unsigned long long n) {
 }
 
 // min
-int_type linear_congruential_generator::min() {
+int_type linear_congruential_generator::min() const {
     return this->c_ == 0 ? 1 : 0;
 }
 
 // max
-int_type linear_congruential_generator::max() {
+int_type linear_congruential_generator::max() const {
     return this->m_ - 1;
 }
 
