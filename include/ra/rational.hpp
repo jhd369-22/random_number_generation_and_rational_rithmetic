@@ -9,7 +9,7 @@ class rational {
         using int_type = T;
 
         //default constructor
-        rational() : numerator_(0), denominator_(1) {}
+        rational() : numerator_(int_type(0)), denominator_(int_type(1)) {}
 
         // two parameter constructor
         rational(int_type n, int_type d): numerator_(n), denominator_(d) {
