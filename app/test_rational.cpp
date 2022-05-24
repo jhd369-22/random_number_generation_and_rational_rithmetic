@@ -241,27 +241,38 @@ TEMPLATE_TEST_CASE("operator>>", "[rational]", int, long, long long) {
         CHECK(r.denominator() == 2);
     }
 
-    SECTION("incorrect input") {
+    SECTION("incorrect input1") {
         ra::math::rational<TestType> r;
         std::stringstream ss("1 2");
         REQUIRE(!(ss >> r));
     }
 
-    SECTION("incorrect input1") {
+    SECTION("incorrect input2") {
         ra::math::rational<TestType> r;
         std::stringstream ss("a/2");
         REQUIRE(!(ss >> r));
     }
 
-    SECTION("incorrect input2") {
+    SECTION("incorrect input3") {
         ra::math::rational<TestType> r;
         std::stringstream ss("1/a");
         REQUIRE(!(ss >> r));
     }
 
-    SECTION("incorrect input3") {
+    SECTION("incorrect input4") {
         ra::math::rational<TestType> r;
         std::stringstream ss("a/a");
         REQUIRE(!(ss >> r));
     }
-}
+
+    SECTION("incorrect input5") {
+        ra::math::rational<TestType> r;
+        std::stringstream ss("/");
+        REQUIRE(!(ss >> r));
+    }
+
+    SECTION("incorrect input6") {
+        ra::math::rational<TestType> r;
+        std::stringstream ss(" / ");
+        REQUIRE(!(ss >> r));
+    }
