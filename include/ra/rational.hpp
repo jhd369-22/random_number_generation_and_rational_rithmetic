@@ -3,13 +3,9 @@
 namespace ra::math {
 template <typename T>
 class rational {
-        using int_type = T;
-
-    private:
-        int_type numerator_;
-        int_type denominator_;
-
+        
     public:
+        using int_type = T;
 
         //default constructor
         rational() : numerator_(0), denominator_(1) {}
@@ -212,6 +208,10 @@ class rational {
 
             return tmp;
         }
+
+    private:
+        int_type numerator_;
+        int_type denominator_;
 }; 
 
 // non member template unary operators
