@@ -3,6 +3,7 @@
 #include <ra/random.hpp>
 #include <random>
 
+using int_type = ra::random::int_type;
 
 // catch2 test cases
 TEST_CASE("constructor", "[linear_congruential_generator]") {

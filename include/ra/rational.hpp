@@ -214,7 +214,7 @@ class rational {
         }
 }; 
 
-// non member template unary operator+
+// non member template unary operators
 template<typename T>
 rational<T> operator+(const rational<T> &r) {
     return r;
