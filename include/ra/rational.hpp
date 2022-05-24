@@ -266,7 +266,7 @@ std::istream &operator>>(std::istream &is, rational<T> &r) {
 
     is >> numerator >> c >> denominator;
 
-    if(c != '/') {
+    if(!numerator || c != '/' || !denominator) {
         is.setstate(std::ios_base::failbit);
         return is;
     }
