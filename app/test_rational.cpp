@@ -232,11 +232,20 @@ TEMPLATE_TEST_CASE("operator<<", "[rational]", int, long, long long) {
 }
 
 TEMPLATE_TEST_CASE("operator>>", "[rational]", int, long, long long) {
-    ra::math::rational<TestType> r(1, 2);
-    std::stringstream ss;
-    ss << r;
-    ra::math::rational<TestType> r2;
-    ss >> r2;
-    CHECK(r2.numerator() == 1);
-    CHECK(r2.denominator() == 2);
+
+    SECTION("correct input") {
+        ra::math::rational<TestType> r;
+        std::stringstream ss("1/2");
+        REQUIRE(ss >> r);
+        CHECK(r.numerator() == 1);
+        CHECK(r.denominator() == 2);
+    }
+
+    SECTION("incorrect input") {
+        ra::math::rational<TestType> r;
+        std::stringstream ss("1 2");
+        REQUIRE(ss >> r);
+        CHECK(r.numerator() == 1);
+        CHECK(r.denominator() == 2);
+    }
 }
