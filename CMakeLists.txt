@@ -9,6 +9,9 @@ set(CMAKE_BUILD_TYPE Debug)
 # find catch2
 find_package(Catch2 REQUIRED)
 
+# include directory
+include_directories(include)
+
 # add library
 add_library(random_lib lib/random.cpp include/random.hpp)
 

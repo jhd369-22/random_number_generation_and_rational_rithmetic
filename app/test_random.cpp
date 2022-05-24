@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>
-#include <include/ra/random.hpp>
+#include <ra/random.hpp>
 #include <random>
 
 
@@ -24,7 +24,7 @@ TEST_CASE("copy constructor", "[linear_congruential_generator]") {
 
 TEST_CASE("copy assignment operator", "[linear_congruential_generator]") {
     ra::random::linear_congruential_generator lcg(1, 2, 3, 4);
-    ra::random::linear_congruential_generator lcg2;
+    ra::random::linear_congruential_generator lcg2(5, 6, 7, 8);
     lcg2 = lcg;
     REQUIRE(lcg2.multiplier() == 1);
     REQUIRE(lcg2.increment() == 2);
@@ -43,7 +43,7 @@ TEST_CASE("move constructor", "[linear_congruential_generator]") {
 
 TEST_CASE("move assignment operator", "[linear_congruential_generator]") {
     ra::random::linear_congruential_generator lcg(1, 2, 3, 4);
-    ra::random::linear_congruential_generator lcg2;
+    ra::random::linear_congruential_generator lcg2(5, 6, 7, 8);
     lcg2 = std::move(lcg);
     REQUIRE(lcg2.multiplier() == 1);
     REQUIRE(lcg2.increment() == 2);
@@ -74,36 +74,28 @@ TEST_CASE("default_seed", "[linear_congruential_generator]") {
 TEST_CASE("seed", "[linear_congruential_generator]") {
     ra::random::linear_congruential_generator lcg(123, 456, 789);
     lcg.seed(123);
-    REQUIRE(lcg.s_ == 123);
+    REQUIRE(lcg.get_x() == 123);
 }
 
 TEST_CASE("operator()", "[linear_congruential_generator]") {
     ra::random::linear_congruential_generator lcg(123, 456, 789, 1);
-    std::default_random_engine<ra::random::linear_congruential_generator::int_type, 123, 456, 789> gen(1);
+    std::linear_congruential_engine<ra::random::int_type, 123, 456, 789> gen(1);
     for (int i = 0; i < 10; ++i) {
         REQUIRE(lcg() == gen());
     }
 }
 
-TEST_CASE("operator==", "[linear_congruential_generator]") {
+TEST_CASE("operator== & operator!=", "[linear_congruential_generator]") {
     ra::random::linear_congruential_generator lcg(123, 456, 789);
     ra::random::linear_congruential_generator lcg2(123, 456, 789);
     REQUIRE(lcg == lcg2);
     lcg.seed(123);
     REQUIRE(lcg != lcg2);
-}
-
-TEST_CASE("operator!=", "[linear_congruential_generator]") {
-    ra::random::linear_congruential_generator lcg(123, 456, 789);
-    ra::random::linear_congruential_generator lcg2(123, 456, 789);
-    REQUIRE(lcg != lcg2);
-    lcg.seed(123);
-    REQUIRE(lcg == lcg2);
 }
 
 TEST_CASE("discard", "[linear_congruential_generator]") {
     ra::random::linear_congruential_generator lcg(123, 456, 789, 1);
-    std::default_random_engine<ra::random::linear_congruential_generator::int_type, 123, 456, 789> gen(1);
+    std::linear_congruential_engine<ra::random::int_type, 123, 456, 789> gen(1);
     lcg.discard(10);
     gen.discard(10);
     for (int i = 0; i < 10; ++i) {
@@ -113,13 +105,13 @@ TEST_CASE("discard", "[linear_congruential_generator]") {
 
 TEST_CASE("min", "[linear_congruential_generator]") {
     ra::random::linear_congruential_generator lcg(123, 456, 789, 1);
-    std::default_random_engine<ra::random::linear_congruential_generator::int_type, 123, 456, 789> gen(1);
+    std::linear_congruential_engine<ra::random::int_type, 123, 456, 789> gen(1);
     REQUIRE(lcg.min() == gen.min());
 }
 
 TEST_CASE("max", "[linear_congruential_generator]") {
     ra::random::linear_congruential_generator lcg(123, 456, 789, 1);
-    std::default_random_engine<ra::random::linear_congruential_generator::int_type, 123, 456, 789> gen(1);
+    std::linear_congruential_engine<ra::random::int_type, 123, 456, 789> gen(1);
     REQUIRE(lcg.max() == gen.max());
 }
 
@@ -127,5 +119,5 @@ TEST_CASE("operator<<", "[linear_congruential_generator]") {
     ra::random::linear_congruential_generator lcg(123, 456, 789);
     std::stringstream ss;
     ss << lcg;
-    REQUIRE(ss.str() == "123 456 789 579");
+    REQUIRE(ss.str() == "123 456 789 1");
 }
