@@ -276,3 +276,4 @@ TEMPLATE_TEST_CASE("operator>>", "[rational]", int, long, long long) {
         std::stringstream ss(" / ");
         REQUIRE(!(ss >> r));
     }
+}
