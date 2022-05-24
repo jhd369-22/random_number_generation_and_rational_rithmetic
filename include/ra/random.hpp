@@ -42,8 +42,14 @@ class linear_congruential_generator {
         // default seed
         static int_type default_seed();
 
+        // return x
+        int_type get_x() const;
+
         // set new seed
         void seed(int_type s = default_seed());
+
+        // return current seed
+        int_type get_seed() const;
 
         // operator()
         int_type operator()();
@@ -158,6 +164,11 @@ int_type linear_congruential_generator::default_seed() {
     return 1;
 }
 
+// return current x
+int_type linear_congruential_generator::get_x() const {
+    return this->x_;
+}
+
 // set a new seed value
 void linear_congruential_generator::seed(int_type s) {
     if ((this->c_ % this->m_) == 0 && (s % this->m_) == 0) {
@@ -165,6 +176,11 @@ void linear_congruential_generator::seed(int_type s) {
     } else {
         this->x_ = s;
     }
+}
+
+// return current seed
+int_type linear_congruential_generator::get_seed() const {
+    return this->s_;
 }
 
 // operator()
