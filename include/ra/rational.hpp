@@ -1,4 +1,5 @@
 #include <iostream>
+#include <numeric>
 
 namespace ra::math {
 template <typename T>
