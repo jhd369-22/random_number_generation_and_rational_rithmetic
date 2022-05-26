@@ -55,9 +55,10 @@ TEMPLATE_TEST_CASE("move assignment operator", "[rational]", int, long, long lon
     ra::math::rational<TestType> r(1, 2);
     ra::math::rational<TestType> r2(6, 9);
     r2 = std::move(r);
-    r = std::move(r);
-    CHECK(r.numerator() == 1);
-    CHECK(r.denominator() == 2);
+    CHECK(r2.numerator() == 1);
+    CHECK(r2.denominator() == 2);
+
+    r2 = std::move(r2);
     CHECK(r2.numerator() == 1);
     CHECK(r2.denominator() == 2);
 }
