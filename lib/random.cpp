@@ -32,14 +32,18 @@ linear_congruential_generator::linear_congruential_generator(const linear_congru
 
 // copy assignment operator
 linear_congruential_generator &linear_congruential_generator::operator=(const linear_congruential_generator &other) {
-    // copy the a, c, m, and s values of the other generator
-    this->a_ = other.a_;
-    this->c_ = other.c_;
-    this->m_ = other.m_;
-    this->s_ = other.s_;
+    // add a conditional statement that performs no operation
+    // if you try to assign the object to itself.
+    if (this != &other) {
+        // copy the a, c, m, and s values of the other generator
+        this->a_ = other.a_;
+        this->c_ = other.c_;
+        this->m_ = other.m_;
+        this->s_ = other.s_;
 
-    // copy the initial state of the other generator
-    this->x_ = other.x_;
+        // copy the initial state of the other generator
+        this->x_ = other.x_;
+    }
 
     return *this;
 }
@@ -58,14 +62,18 @@ linear_congruential_generator::linear_congruential_generator(linear_congruential
 
 // move assignment operator
 linear_congruential_generator &linear_congruential_generator::operator=(linear_congruential_generator &&other) {
-    // move the a, c, m, and s values of the other generator
-    this->a_ = other.a_;
-    this->c_ = other.c_;
-    this->m_ = other.m_;
-    this->s_ = other.s_;
+    // add a conditional statement that performs no operation
+    // if you try to assign the object to itself.
+    if (this != &other) {
+        // move the a, c, m, and s values of the other generator
+        this->a_ = other.a_;
+        this->c_ = other.c_;
+        this->m_ = other.m_;
+        this->s_ = other.s_;
 
-    // move the initial state of the other generator
-    this->x_ = other.x_;
+        // move the initial state of the other generator
+        this->x_ = other.x_;
+    }
 
     return *this;
 }

@@ -4,21 +4,20 @@
 namespace ra::math {
 template <typename T>
 class rational {
-        
     public:
         using int_type = T;
 
-        //default constructor
+        // default constructor
         rational() : numerator_(int_type(0)), denominator_(int_type(1)) {}
 
         // two parameter constructor
-        rational(int_type n, int_type d): numerator_(n), denominator_(d) {
-            if(denominator_ == 0){
+        rational(int_type n, int_type d) : numerator_(n), denominator_(d) {
+            if (denominator_ == 0) {
                 numerator_ = std::numeric_limits<int_type>::max();
                 denominator_ = int_type(1);
             }
-            
-            if(denominator_ < 0){
+
+            if (denominator_ < 0) {
                 numerator_ = -numerator_;
                 denominator_ = -denominator_;
             }
@@ -29,35 +28,47 @@ class rational {
         }
 
         // copy constructor
-        rational(const rational &other){
+        rational(const rational &other) {
             numerator_ = other.numerator_;
             denominator_ = other.denominator_;
         }
 
         // copy assignment operator
-        rational &operator=(const rational &other){
-            numerator_ = other.numerator_;
-            denominator_ = other.denominator_;
+        rational &operator=(const rational &other) {
+            // add a conditional statement that performs no operation
+            // if you try to assign the object to itself.
+            if (this != &other) {
+                numerator_ = other.numerator_;
+                denominator_ = other.denominator_;
+            }
 
             return *this;
         }
 
         // move constructor
-        rational(rational &&other){
+        rational(rational &&other) {
             numerator_ = other.numerator_;
             denominator_ = other.denominator_;
 
+            // Release the data pointer from the source object so that
+            // the destructor does not free the memory multiple times.
             other.numerator_ = 0;
             other.denominator_ = 1;
         }
 
         // move assignment operator
-        rational &operator=(rational &&other){
-            numerator_ = other.numerator_;
-            denominator_ = other.denominator_;
+        rational &operator=(rational &&other) {
+            // add a conditional statement that performs no operation
+            // if you try to assign the object to itself.
+            if (this != &other) {
+                numerator_ = other.numerator_;
+                denominator_ = other.denominator_;
 
-            other.numerator_ = 0;
-            other.denominator_ = 1;
+                // Release the data pointer from the source object so that
+                // the destructor does not free the memory multiple times.
+                other.numerator_ = 0;
+                other.denominator_ = 1;
+            }
 
             return *this;
         }
@@ -83,7 +94,7 @@ class rational {
 
             numerator_ = n / gcd;
             denominator_ = d / gcd;
-            
+
             return *this;
         }
 
@@ -94,11 +105,11 @@ class rational {
 
             numerator_ = n / gcd;
             denominator_ = d / gcd;
-            
+
             return *this;
         }
 
-        rational &operator*=(const rational &other){
+        rational &operator*=(const rational &other) {
             numerator_ *= other.numerator_;
             denominator_ *= other.denominator_;
 
@@ -109,11 +120,10 @@ class rational {
             return *this;
         }
 
-        rational &operator/=(const rational &other){
-
-            if(other.numerator_ < 0){
+        rational &operator/=(const rational &other) {
+            if (other.numerator_ < 0) {
                 numerator_ *= (-other.denominator_);
-                denominator_ *= (- other.numerator_);
+                denominator_ *= (-other.numerator_);
             } else {
                 numerator_ *= other.denominator_;
                 denominator_ *= other.numerator_;
@@ -150,19 +160,19 @@ class rational {
             return numerator_ != other.numerator_ || denominator_ != other.denominator_;
         }
 
-        bool operator<(const rational &other) const{
+        bool operator<(const rational &other) const {
             return numerator_ * other.denominator_ < other.numerator_ * denominator_;
         }
 
-        bool operator>(const rational &other) const{
+        bool operator>(const rational &other) const {
             return numerator_ * other.denominator_ > other.numerator_ * denominator_;
         }
 
-        bool operator<=(const rational &other) const{
+        bool operator<=(const rational &other) const {
             return numerator_ * other.denominator_ <= other.numerator_ * denominator_;
         }
 
-        bool operator>=(const rational &other) const{
+        bool operator>=(const rational &other) const {
             return numerator_ * other.denominator_ >= other.numerator_ * denominator_;
         }
 
@@ -213,10 +223,10 @@ class rational {
     private:
         int_type numerator_;
         int_type denominator_;
-}; 
+};
 
 // non member template unary operators
-template<typename T>
+template <typename T>
 rational<T> operator+(const rational<T> &r) {
     return r;
 }
@@ -250,7 +260,7 @@ rational<T> operator/(const rational<T> &lhs, const rational<T> &rhs) {
 // stream insertion operator
 template <typename T>
 std::ostream &operator<<(std::ostream &os, const rational<T> &r) {
-    if(r.numerator() < 0) {
+    if (r.numerator() < 0) {
         os << "-";
     }
 
@@ -266,15 +276,14 @@ std::istream &operator>>(std::istream &is, rational<T> &r) {
 
     is >> numerator >> c >> denominator;
 
-    if(!numerator || c != '/' || !denominator) {
+    if (!numerator || c != '/' || !denominator) {
         is.setstate(std::ios_base::failbit);
         return is;
     }
 
     r = rational<T>(numerator, denominator);
-    
+
     return is;
 }
-
 
 }  // namespace ra::math
