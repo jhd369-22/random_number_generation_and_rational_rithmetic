@@ -177,7 +177,7 @@ class rational {
         }
 
         // prefix and postfix increment
-        rational operator++() {
+        rational &operator++() {
             numerator_ += denominator_;
 
             int_type gcd = std::gcd(numerator_, denominator_);
@@ -199,7 +199,7 @@ class rational {
         }
 
         // prefix and postfix decrement
-        rational operator--() {
+        rational &operator--() {
             numerator_ -= denominator_;
 
             int_type gcd = std::gcd(numerator_, denominator_);
