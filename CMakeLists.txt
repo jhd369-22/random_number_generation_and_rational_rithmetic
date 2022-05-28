@@ -6,6 +6,10 @@ project(test_code LANGUAGES CXX)
 # set Debug build type
 set(CMAKE_BUILD_TYPE Debug)
 
+# set c++ standard 17
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 # find catch2
 find_package(Catch2 REQUIRED)
 
