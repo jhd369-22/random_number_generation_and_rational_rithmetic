@@ -82,27 +82,27 @@ linear_congruential_generator &linear_congruential_generator::operator=(linear_c
 linear_congruential_generator::~linear_congruential_generator() {}
 
 // return multiplier
-int_type linear_congruential_generator::multiplier() const {
+linear_congruential_generator::int_type linear_congruential_generator::multiplier() const {
     return this->a_;
 }
 
 // return increment
-int_type linear_congruential_generator::increment() const {
+linear_congruential_generator::int_type linear_congruential_generator::increment() const {
     return this->c_;
 }
 
 // return modulus
-int_type linear_congruential_generator::modulus() const {
+linear_congruential_generator::int_type linear_congruential_generator::modulus() const {
     return this->m_;
 }
 
 // default_seed
-int_type linear_congruential_generator::default_seed() {
+linear_congruential_generator::int_type linear_congruential_generator::default_seed() {
     return 1;
 }
 
 // return current x
-int_type linear_congruential_generator::get_x() const {
+linear_congruential_generator::int_type linear_congruential_generator::get_x() const {
     return this->x_;
 }
 
@@ -116,12 +116,12 @@ void linear_congruential_generator::seed(int_type s) {
 }
 
 // return current seed
-int_type linear_congruential_generator::get_seed() const {
+linear_congruential_generator::int_type linear_congruential_generator::get_seed() const {
     return this->s_;
 }
 
 // operator()
-int_type linear_congruential_generator::operator()() {
+linear_congruential_generator::int_type linear_congruential_generator::operator()() {
     // calculate the next state of the generator
     this->x_ = (this->a_ * this->x_ + this->c_) % this->m_;
 
@@ -150,12 +150,12 @@ void linear_congruential_generator::discard(unsigned long long n) {
 }
 
 // min
-int_type linear_congruential_generator::min() const {
+linear_congruential_generator::int_type linear_congruential_generator::min() const {
     return this->c_ == 0 ? 1 : 0;
 }
 
 // max
-int_type linear_congruential_generator::max() const {
+linear_congruential_generator::int_type linear_congruential_generator::max() const {
     return this->m_ - 1;
 }
 
