@@ -2,10 +2,10 @@
 #include <numeric>
 
 namespace ra::math {
-template <typename T>
+template <typename T1, typename T2>
 class rational {
     public:
-        using int_type = T;
+        using int_type = T1;
 
         // default constructor
         rational() : numerator_(int_type(0)), denominator_(int_type(1)) {}
