@@ -226,40 +226,40 @@ class rational {
 };
 
 // non member template unary operators
-template <typename T>
-rational<T> operator+(const rational<T> &r) {
+template <typename T1, typename T2>
+rational<T1, T2> operator+(const rational<T1, T2> &r) {
     return r;
 }
 
-template <typename T>
-rational<T> operator-(const rational<T> &r) {
-    return rational<T>(-r.numerator(), r.denominator());
+template <typename T1, typename T2>
+rational<T1, T2> operator-(const rational<T1, T2> &r) {
+    return rational<T1, T2>(-r.numerator(), r.denominator());
 }
 
 // non member template binary operators
-template <typename T>
-rational<T> operator+(const rational<T> &lhs, const rational<T> &rhs) {
-    return rational<T>(lhs.numerator() * rhs.denominator() + rhs.numerator() * lhs.denominator(), lhs.denominator() * rhs.denominator());
+template <typename T1, typename T2>
+rational<T1, T2> operator+(const rational<T1, T2> &lhs, const rational<T1, T2> &rhs) {
+    return rational<T1, T2>(lhs.numerator() * rhs.denominator() + rhs.numerator() * lhs.denominator(), lhs.denominator() * rhs.denominator());
 }
 
-template <typename T>
-rational<T> operator-(const rational<T> &lhs, const rational<T> &rhs) {
-    return rational<T>(lhs.numerator() * rhs.denominator() - rhs.numerator() * lhs.denominator(), lhs.denominator() * rhs.denominator());
+template <typename T1, typename T2>
+rational<T1, T2> operator-(const rational<T1, T2> &lhs, const rational<T1, T2> &rhs) {
+    return rational<T1, T2>(lhs.numerator() * rhs.denominator() - rhs.numerator() * lhs.denominator(), lhs.denominator() * rhs.denominator());
 }
 
-template <typename T>
-rational<T> operator*(const rational<T> &lhs, const rational<T> &rhs) {
-    return rational<T>(lhs.numerator() * rhs.numerator(), lhs.denominator() * rhs.denominator());
+template <typename T1, typename T2>
+rational<T1, T2> operator*(const rational<T1, T2> &lhs, const rational<T1, T2> &rhs) {
+    return rational<T1, T2>(lhs.numerator() * rhs.numerator(), lhs.denominator() * rhs.denominator());
 }
 
-template <typename T>
-rational<T> operator/(const rational<T> &lhs, const rational<T> &rhs) {
-    return rational<T>(lhs.numerator() * rhs.denominator(), lhs.denominator() * rhs.numerator());
+template <typename T1, typename T2>
+rational<T1, T2> operator/(const rational<T1, T2> &lhs, const rational<T1, T2> &rhs) {
+    return rational<T1, T2>(lhs.numerator() * rhs.denominator(), lhs.denominator() * rhs.numerator());
 }
 
 // stream insertion operator
-template <typename T>
-std::ostream &operator<<(std::ostream &os, const rational<T> &r) {
+template <typename T1, typename T2>
+std::ostream &operator<<(std::ostream &os, const rational<T1, T2> &r) {
     if (r.numerator() < 0) {
         os << "-";
     }
@@ -269,8 +269,8 @@ std::ostream &operator<<(std::ostream &os, const rational<T> &r) {
 }
 
 // stream extraction operator
-template <typename T>
-std::istream &operator>>(std::istream &is, rational<T> &r) {
+template <typename T1, typename T2>
+std::istream &operator>>(std::istream &is, rational<T1, T2> &r) {
     T numerator, denominator;
     char c;
 
@@ -281,7 +281,7 @@ std::istream &operator>>(std::istream &is, rational<T> &r) {
         return is;
     }
 
-    r = rational<T>(numerator, denominator);
+    r = rational<T1, T2>(numerator, denominator);
 
     return is;
 }
