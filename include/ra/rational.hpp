@@ -271,7 +271,7 @@ std::ostream &operator<<(std::ostream &os, const rational<T1, T2> &r) {
 // stream extraction operator
 template <typename T1, typename T2>
 std::istream &operator>>(std::istream &is, rational<T1, T2> &r) {
-    T numerator, denominator;
+    T1 numerator, denominator;
     char c;
 
     is >> numerator >> c >> denominator;
