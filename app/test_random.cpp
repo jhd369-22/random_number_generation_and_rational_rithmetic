@@ -2,7 +2,7 @@
 #include <catch2/catch.hpp>
 #include <ra/random.hpp>
 #include <random>
-
+#include <sstream>
 
 // catch2 test cases
 TEST_CASE("constructor", "[linear_congruential_generator]") {

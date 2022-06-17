@@ -2,7 +2,7 @@
 #include <catch2/catch.hpp>
 #include <ra/rational.hpp>
 #include <random>
-
+#include <sstream>
 
 // catch2 template test cases
 TEMPLATE_TEST_CASE("default constructor", "[rational]", int, long, long long) {
